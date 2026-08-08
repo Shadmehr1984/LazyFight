@@ -1,7 +1,10 @@
 from moves.Move import Move
+from MoveTarget import MoveTarget
 from creatures.Creature import Creature
 
 class Attack(Move):
+    move_target: MoveTarget = MoveTarget.opponent
+    
     def __init__(self, rank, value, accurate):
         super().__init__(rank, value, accurate)
     

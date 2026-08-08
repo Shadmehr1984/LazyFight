@@ -1,7 +1,10 @@
 from creatures.Creature import Creature
+from MoveTarget import MoveTarget
 from random import randint
 
 class Move:
+    move_target: MoveTarget = None
+    
     def __init__(self, rank, value, accurate) -> None:
         self.rank = rank
         self.value = value
