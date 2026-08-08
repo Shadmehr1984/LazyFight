@@ -1,9 +1,16 @@
 from moves.Defend import Defend
 from moves.Heal import Heal
+from moves.Attack import Attack
+from moves.Move import Move
+from moves.MoveTarget import MoveTarget
+from creatures.Player import Player
+from creatures.Enemy import Enemy
 from time import sleep
 
 class Turn:
-    def __init__(self, player, enemy) -> None:
+    move_order: list = [Heal, Defend, Attack]
+    
+    def __init__(self, player: Player, enemy: Enemy) -> None:
         self.player = player
         self.enemy = enemy
     
@@ -13,6 +20,34 @@ class Turn:
             self.enemy.turn_moves[move_index].move_take()
             self.player.turn_moves[move_index].is_effected(self.player)
             self.enemy.turn_moves[move_index].is_effected(self.enemy)
+    
+    def execute_moves_effect(self, player_move: Move, enemy_move: Move):
+        player_target = None
+        enemy_target = None
+        
+        # 999 means out of order
+        player_move_order = 999
+        enemy_move_order = 999
+        
+        if player_move is not None:
+            player_target = self.player if player_move.move_target == MoveTarget.myself else self.enemy
+            player_move_order = Turn.move_order.index(player_move.__class__)
+        if enemy_move is not None:
+            enemy_target = self.enemy if enemy_move.move_target == MoveTarget.myself else self.player
+            enemy_move_order = Turn.move_order.index(enemy_move.__class__)
+        
+        execute_order = []
+        
+        if (player_move_order <= enemy_move_order):
+            execute_order.append({'move': player_move, 'target': player_target})
+            execute_order.append({'move': enemy_move, 'target': enemy_target})
+        else:
+            execute_order.append({'move': enemy_move, 'target': enemy_target})
+            execute_order.append({'move': player_move, 'target': player_target})
+        
+        for execute in execute_order:
+            if (execute['move'] != None):
+                execute['move'].effect(execute['target'])
     
     def start(self) -> bool:
         is_continue: bool = True
@@ -33,18 +68,7 @@ class Turn:
         player_move_take = False
         enemy_move_take = False
         for move_index in range(0, 3):
-            if (type(self.player.effected_moves[move_index]) in [Heal, Defend]):
-                self.player.effected_moves[move_index].effect(self.player)
-                player_move_take = True
-            if (type(self.enemy.effected_moves[move_index]) in [Heal, Defend]):
-                self.enemy.effected_moves[move_index].effect(self.enemy)
-                enemy_move_take = True
-            if (not player_move_take and self.player.effected_moves[move_index] != None):
-                self.player.effected_moves[move_index].effect(self.enemy)
-            if (not enemy_move_take and self.enemy.effected_moves[move_index] != None):
-                self.enemy.effected_moves[move_index].effect(self.player)
-            player_move_take = False
-            enemy_move_take = False
+            self.execute_moves_effect(self.player.effected_moves[move_index], self.enemy.effected_moves[move_index])
         self.player.clear_turn_moves()
         self.player.clear_effected_moves()
         self.enemy.clear_turn_moves()

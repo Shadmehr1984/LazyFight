@@ -1,5 +1,5 @@
 from moves.Move import Move
-from MoveTarget import MoveTarget
+from moves.MoveTarget import MoveTarget
 from creatures.Creature import Creature
 
 class Heal(Move):
