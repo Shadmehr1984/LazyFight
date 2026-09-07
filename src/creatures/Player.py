@@ -29,7 +29,11 @@ class Player(Creature):
             selected_move_index: int
             for counter in range(0, self.fight_moves_size):
                 print(f'select {counter}th fight move:')
-                selected_move_index = int(input())
+                while(True):
+                    selected_move_index = int(input())
+                    if (self.moves[selected_move_index] in self.fight_moves):
+                        print('duplicate move, select again:')
+                    else: break
                 self.fight_moves.append(self.moves[selected_move_index])
         print('fight moves selected')
         print()
@@ -42,7 +46,11 @@ class Player(Creature):
         selected_move_index: int
         for counter in range(0, self.turn_moves_size):
             print(f'select {counter}th turn move:')
-            selected_move_index = int(input())
+            while(True):
+                selected_move_index = int(input())
+                if (self.fight_moves[selected_move_index] in self.turn_moves):
+                    print('duplicate move, select again:')
+                else: break
             self.turn_moves.append(self.fight_moves[selected_move_index])
         print()
     
