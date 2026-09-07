@@ -1,6 +1,8 @@
+from src.things.Item import Item
+
 class Inventory:
     def __init__(self) -> None:
-        self.items = []
+        self.items: list[Item] = []
     
     def add_item(self, item):
         for item_index in range(0, len(self.items)):

@@ -1,4 +1,4 @@
-from creatures.Creature import Creature
+from src.creatures.Creature import Creature
 from random import randint
 
 class Enemy(Creature):

@@ -1,9 +1,9 @@
-from moves.Move import Move
-from moves.MoveTarget import MoveTarget
-from moves.Attack import Attack
-from moves.Defend import Defend
-from moves.Heal import Heal
-from creatures.Creature import Creature
+from src.moves.Move import Move
+from src.moves.MoveTarget import MoveTarget
+from src.moves.Attack import Attack
+from src.moves.Defend import Defend
+from src.moves.Heal import Heal
+from src.creatures.Creature import Creature
 class Buff(Move):
     move_target: MoveTarget = MoveTarget.myself
     

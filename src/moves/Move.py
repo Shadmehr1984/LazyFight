@@ -1,5 +1,5 @@
-from creatures.Creature import Creature
-from moves.MoveTarget import MoveTarget
+from src.creatures.Creature import Creature
+from src.moves.MoveTarget import MoveTarget
 from random import randint
 
 class Move:

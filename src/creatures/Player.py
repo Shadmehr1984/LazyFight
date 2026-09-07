@@ -1,4 +1,4 @@
-from creatures.Creature import Creature
+from src.creatures.Creature import Creature
 
 class Player(Creature):
     def __init__(self, name: str, rank: int, max_hp: int):

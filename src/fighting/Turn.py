@@ -1,12 +1,12 @@
-from moves.Defend import Defend
-from moves.Heal import Heal
-from moves.Attack import Attack
-from moves.Buff import Buff
-from moves.Nerf import Nerf
-from moves.Move import Move
-from moves.MoveTarget import MoveTarget
-from creatures.Player import Player
-from creatures.Enemy import Enemy
+from src.moves.Defend import Defend
+from src.moves.Heal import Heal
+from src.moves.Attack import Attack
+from src.moves.Buff import Buff
+from src.moves.Nerf import Nerf
+from src.moves.Move import Move
+from src.moves.MoveTarget import MoveTarget
+from src.creatures.Player import Player
+from src.creatures.Enemy import Enemy
 from time import sleep
 
 class Turn:

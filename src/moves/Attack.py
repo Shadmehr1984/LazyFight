@@ -1,6 +1,6 @@
-from moves.Move import Move
-from moves.MoveTarget import MoveTarget
-from creatures.Creature import Creature
+from src.moves.Move import Move
+from src.moves.MoveTarget import MoveTarget
+from src.creatures.Creature import Creature
 
 class Attack(Move):
     move_target: MoveTarget = MoveTarget.opponent

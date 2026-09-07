@@ -1,10 +1,12 @@
-from things.Inventory import Inventory
+from src.things.Inventory import Inventory
+from src.creatures.Group import Group
 
 class Creature:
     
-    def __init__(self, name: str, rank: int, max_hp):
+    def __init__(self, name: str, rank: int, group: Group, max_hp):
             self.name = name
             self.rank: int = rank
+            self.group: Group = group
             self.max_hp = max_hp
             self.current_hp: int = max_hp
             self.base_defense = 0

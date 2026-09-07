@@ -1,9 +1,9 @@
-from moves.Move import Move
-from moves.Attack import Attack
-from moves.Defend import Defend
-from moves.Heal import Heal
-from moves.MoveTarget import MoveTarget
-from creatures.Creature import Creature
+from src.moves.Move import Move
+from src.moves.Attack import Attack
+from src.moves.Defend import Defend
+from src.moves.Heal import Heal
+from src.moves.MoveTarget import MoveTarget
+from src.creatures.Creature import Creature
 
 class Nerf(Move):
     move_target: MoveTarget = MoveTarget.opponent

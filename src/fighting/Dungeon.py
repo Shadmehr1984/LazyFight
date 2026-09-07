@@ -1,5 +1,5 @@
-from fighting.Fight import Fight
-from things.Inventory import Inventory
+from src.fighting.Fight import Fight
+from src.things.Inventory import Inventory
 
 class Dungeon:
     def __init__(self, player, enemies) -> None:

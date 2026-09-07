@@ -1,4 +1,4 @@
-from fighting.Turn import Turn
+from src.fighting.Turn import Turn
 
 class Fight:
     def __init__(self, player, enemy) -> None:
