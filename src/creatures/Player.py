@@ -19,7 +19,7 @@ class Player(Creature):
             self.rank_up()
     
     def select_fight_moves(self):
-        if (len(self.moves) == 6):
+        if (len(self.moves) == self.fight_moves_size):
             self.fight_moves = self.moves.copy()
         else:
             print('select your fighting moves:')
@@ -27,7 +27,7 @@ class Player(Creature):
                 print(move_index, self.moves[move_index])
             print()
             selected_move_index: int
-            for counter in range(0, 6):
+            for counter in range(0, self.fight_moves_size):
                 print(f'select {counter}th fight move:')
                 selected_move_index = int(input())
                 self.fight_moves.append(self.moves[selected_move_index])
@@ -36,11 +36,11 @@ class Player(Creature):
     
     def select_turn_moves(self):
         print('select your turn moves:')
-        for move_index in range(0, 6):
+        for move_index in range(0, self.fight_moves_size):
             print(move_index, self.fight_moves[move_index])
         print()
         selected_move_index: int
-        for counter in range(0, 3):
+        for counter in range(0, self.turn_moves_size):
             print(f'select {counter}th turn move:')
             selected_move_index = int(input())
             self.turn_moves.append(self.fight_moves[selected_move_index])

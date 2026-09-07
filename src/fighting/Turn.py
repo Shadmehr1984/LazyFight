@@ -7,11 +7,12 @@ from src.moves.Move import Move
 from src.moves.MoveTarget import MoveTarget
 from src.creatures.Player import Player
 from src.creatures.Enemy import Enemy
+from src.creatures.Creature import Creature
 from time import sleep
 
 class Turn:
     move_order: list = [Nerf, Buff, Heal, Defend, Attack]
-    turn_moves_count = 3
+    turn_moves_count = Creature.turn_moves_size
     
     def __init__(self, player: Player, enemy: Enemy) -> None:
         self.player = player

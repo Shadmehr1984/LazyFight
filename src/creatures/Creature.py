@@ -3,6 +3,8 @@ from src.creatures.Group import Group
 from math import fabs
 
 class Creature:
+    fight_moves_size = 6
+    turn_moves_size = 3
     
     def __init__(self, name: str, rank: int, group: Group, max_hp):
             self.name = name

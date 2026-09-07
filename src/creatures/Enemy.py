@@ -7,11 +7,11 @@ class Enemy(Creature):
         super().__init__(name, rank, group, max_hp)
     
     def select_fight_moves(self):
-        if (len(self.moves) == 6):
+        if (len(self.moves) == self.fight_moves_size):
             self.fight_moves = self.moves.copy()
         else:
             counter = 0
-            while(counter < 6):
+            while(counter < self.fight_moves_size):
                 index = randint(0, len(self.moves) - 1)
                 if (self.moves[index] not in self.fight_moves):
                     self.fight_moves.append(self.moves[index])
@@ -21,8 +21,8 @@ class Enemy(Creature):
     
     def select_turn_moves(self):
         counter = 0
-        while(counter < 3):
-            index = randint(0, 5)
+        while(counter < self.turn_moves_size):
+            index = randint(0, self.fight_moves_size - 1)
             if (self.fight_moves[index] not in self.turn_moves):
                 self.turn_moves.append(self.fight_moves[index])
                 counter += 1
