@@ -1,9 +1,10 @@
 from src.creatures.Creature import Creature
+from src.creatures.Group import Group
 from random import randint
 
 class Enemy(Creature):
-    def __init__(self, name: str, rank: int, max_hp: int):
-        super().__init__(name, rank, max_hp)
+    def __init__(self, name: str, rank: int, group: Group, max_hp: int):
+        super().__init__(name, rank, group, max_hp)
     
     def select_fight_moves(self):
         if (len(self.moves) == 6):

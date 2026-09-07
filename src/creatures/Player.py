@@ -1,9 +1,10 @@
 from src.creatures.Creature import Creature
+from src.creatures.Group import Group
 
 class Player(Creature):
-    def __init__(self, name: str, rank: int, max_hp: int):
+    def __init__(self, name: str, rank: int, group : Group, max_hp: int):
         self.exp = 0
-        super().__init__(name, rank, max_hp)
+        super().__init__(name, rank, group, max_hp)
     
     def rank_up(self):
         self.exp -= self.rank * 100

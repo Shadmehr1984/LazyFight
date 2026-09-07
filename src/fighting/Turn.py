@@ -17,6 +17,10 @@ class Turn:
         self.player = player
         self.enemy = enemy
     
+    def preparing(self):
+        self.player.select_turn_moves()
+        self.enemy.select_turn_moves()
+    
     def trigger(self):
         for move_index in range(0, self.turn_moves_count):
             self.player.turn_moves[move_index].move_take()
@@ -52,10 +56,17 @@ class Turn:
             if (execute['move'] != None):
                 execute['move'].effect(execute['target'])
     
+    def reset_creatures(self):
+        self.player.clear_turn_moves()
+        self.player.clear_effected_moves()
+        self.player.reset_moves_rate()
+        self.enemy.clear_turn_moves()
+        self.enemy.clear_effected_moves()
+        self.enemy.reset_moves_rate()
+    
     def start(self) -> bool:
         is_continue: bool = True
-        self.player.select_turn_moves()
-        self.enemy.select_turn_moves()
+        self.preparing()
         print('player turn moves:')
         for move in self.player.turn_moves:
             print(move)
@@ -72,12 +83,7 @@ class Turn:
         enemy_move_take = False
         for move_index in range(0, self.turn_moves_count):
             self.execute_moves_effect(self.player.effected_moves[move_index], self.enemy.effected_moves[move_index])
-        self.player.clear_turn_moves()
-        self.player.clear_effected_moves()
-        self.player.reset_moves_rate()
-        self.enemy.clear_turn_moves()
-        self.enemy.clear_effected_moves()
-        self.enemy.reset_moves_rate()
+        self.reset_creatures()
         if (self.player.current_hp <= 0 or self.enemy.current_hp <= 0):
             is_continue = False
         return is_continue
