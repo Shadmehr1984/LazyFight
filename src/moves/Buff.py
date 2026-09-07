@@ -17,7 +17,8 @@ class Buff(Move):
     
     def effect(self, owner: Creature):
         if (self.is_take):
-            owner.set_moves_rate(self.value, self.move_class)
+            value = self.value
+            owner.set_moves_rate(value, self.move_class)
     
     def __str__(self) -> str:
         move_class_name = ''

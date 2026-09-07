@@ -3,7 +3,7 @@ class Item:
         self.name = name
         self.count = count
     
-    def __eq__(self, __value: object) -> bool:
+    def __eq__(self, __value: 'Item') -> bool:
         return self.name == __value.name
     
     def __str__(self) -> str:

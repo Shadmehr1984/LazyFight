@@ -11,13 +11,7 @@ class Attack(Move):
     def effect(self, opponent: Creature):
         if (self.is_take):
             value = int(self.value * self.rate)
-            value -= opponent.defense
-            opponent.defense -= self.value
-            if(opponent.defense < 0):
-                opponent.defense = 0
-            if(value < 0):
-                value = 0
-            opponent.current_hp -= value
+            opponent.take_damage(value)
     
     def __str__(self) -> str:
         return f'attack, rank:{self.rank}, value:{self.value}, accurate:{self.accurate}'

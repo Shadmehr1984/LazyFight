@@ -11,7 +11,7 @@ class Defend(Move):
     def effect(self, owner: Creature):
         if (self.is_take):
             value = int(self.value * self.rate)
-            owner.defense += value
+            owner.get_defend(value)
     
     def __str__(self) -> str:
         return f'defend, rank:{self.rank}, value{self.value}, accurate:{self.accurate}'

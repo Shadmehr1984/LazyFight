@@ -18,6 +18,9 @@ class Creature:
     def add_move(self, move):
         self.moves.append(move)
     
+    def add_effected_move(self, move):
+        self.effected_moves.append(move)
+    
     def select_fight_moves(self):
         pass
     
@@ -51,6 +54,23 @@ class Creature:
     def reset_moves_rate(self):
         for move in self.moves:
             move.rate = 1
+    
+    def take_damage(self, damage: int):
+        damage -= self.defense
+        self.defense -= self.damage
+        if(self.defense < 0):
+            self.defense = 0
+        if(damage < 0):
+            damage = 0
+        self.current_hp -= damage
+    
+    def get_defend(self, defend: int):
+        self.defense += defend
+    
+    def get_heal(self, heal: int):
+        self.current_hp += heal
+        if (self.current_hp > self.max_hp):
+            self.current_hp = self.max_hp
     
     def __str__(self) -> str:
         return f'{self.name}, rank:{self.rank}, hp:{self.current_hp}, defense:{self.defense}'

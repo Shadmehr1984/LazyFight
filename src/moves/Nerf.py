@@ -18,7 +18,8 @@ class Nerf(Move):
     
     def effect(self, opponent: Creature):
         if (self.is_take):
-            opponent.set_moves_rate(-self.value, self.move_class)
+            value = -self.value
+            opponent.set_moves_rate(value, self.move_class)
     
     def __str__(self) -> str:
         move_class_name = ''

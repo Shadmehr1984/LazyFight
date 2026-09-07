@@ -11,13 +11,14 @@ from time import sleep
 
 class Turn:
     move_order: list = [Nerf, Buff, Heal, Defend, Attack]
+    turn_moves_count = 3
     
     def __init__(self, player: Player, enemy: Enemy) -> None:
         self.player = player
         self.enemy = enemy
     
     def trigger(self):
-        for move_index in range(0, 3):
+        for move_index in range(0, self.turn_moves_count):
             self.player.turn_moves[move_index].move_take()
             self.enemy.turn_moves[move_index].move_take()
             self.player.turn_moves[move_index].is_effected(self.player)
@@ -69,7 +70,7 @@ class Turn:
         self.trigger()
         player_move_take = False
         enemy_move_take = False
-        for move_index in range(0, 3):
+        for move_index in range(0, self.turn_moves_count):
             self.execute_moves_effect(self.player.effected_moves[move_index], self.enemy.effected_moves[move_index])
         self.player.clear_turn_moves()
         self.player.clear_effected_moves()

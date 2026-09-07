@@ -17,8 +17,8 @@ class Move:
     
     def is_effected(self, move_owner):
         if (self.is_take):
-            move_owner.effected_moves.append(self)
-        else: move_owner.effected_moves.append(None)
+            move_owner.add_effected_move(self)
+        else: move_owner.add_effected_move(None)
     
     def effect(self, creature: Creature):
         pass
