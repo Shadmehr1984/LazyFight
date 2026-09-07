@@ -1,5 +1,6 @@
 from src.things.Inventory import Inventory
 from src.creatures.Group import Group
+from math import fabs
 
 class Creature:
     
@@ -7,6 +8,7 @@ class Creature:
             self.name = name
             self.rank: int = rank
             self.group: Group = group
+            self.group_rate = 1
             self.max_hp = max_hp
             self.current_hp: int = max_hp
             self.base_defense = 0
@@ -57,9 +59,25 @@ class Creature:
         for move in self.moves:
             move.rate = 1
     
+    def set_group_rate(self, opponent_group: Group):
+        status = Group.compare(self.group, opponent_group)
+        
+        match status:
+            case 1:
+                self.group_rate = 1.25
+            case 0:
+                self.group_rate = 1
+            case -1:
+                self.group_rate = 0.75
+    
+    def reset_group_rate(self):
+        self.group_rate = 1
+    
     def take_damage(self, damage: int):
+        damage = int(damage * fabs(2 - self.group_rate))
+        damage_copy = damage
         damage -= self.defense
-        self.defense -= self.damage
+        self.defense -= damage_copy
         if(self.defense < 0):
             self.defense = 0
         if(damage < 0):
@@ -67,9 +85,11 @@ class Creature:
         self.current_hp -= damage
     
     def get_defend(self, defend: int):
+        defend = int(defend * self.group_rate)
         self.defense += defend
     
     def get_heal(self, heal: int):
+        heal = int(heal * self.group_rate)
         self.current_hp += heal
         if (self.current_hp > self.max_hp):
             self.current_hp = self.max_hp
