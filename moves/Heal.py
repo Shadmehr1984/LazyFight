@@ -10,7 +10,7 @@ class Heal(Move):
     
     def effect(self, owner: Creature):
         if (self.is_take):
-            value = self.value * self.rate
+            value = int(self.value * self.rate)
             owner.current_hp += value
             if (owner.current_hp > owner.max_hp):
                 owner.current_hp = owner.max_hp
