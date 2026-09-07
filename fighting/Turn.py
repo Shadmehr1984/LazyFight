@@ -1,6 +1,8 @@
 from moves.Defend import Defend
 from moves.Heal import Heal
 from moves.Attack import Attack
+from moves.Buff import Buff
+from moves.Nerf import Nerf
 from moves.Move import Move
 from moves.MoveTarget import MoveTarget
 from creatures.Player import Player
@@ -8,7 +10,7 @@ from creatures.Enemy import Enemy
 from time import sleep
 
 class Turn:
-    move_order: list = [Heal, Defend, Attack]
+    move_order: list = [Nerf, Buff, Heal, Defend, Attack]
     
     def __init__(self, player: Player, enemy: Enemy) -> None:
         self.player = player
@@ -71,8 +73,10 @@ class Turn:
             self.execute_moves_effect(self.player.effected_moves[move_index], self.enemy.effected_moves[move_index])
         self.player.clear_turn_moves()
         self.player.clear_effected_moves()
+        self.player.reset_moves_rate()
         self.enemy.clear_turn_moves()
         self.enemy.clear_effected_moves()
+        self.enemy.reset_moves_rate()
         if (self.player.current_hp <= 0 or self.enemy.current_hp <= 0):
             is_continue = False
         return is_continue

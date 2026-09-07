@@ -10,7 +10,7 @@ class Attack(Move):
     
     def effect(self, opponent: Creature):
         if (self.is_take):
-            value = self.value
+            value = self.value * self.rate
             value -= opponent.defense
             opponent.defense -= self.value
             if(opponent.defense < 0):

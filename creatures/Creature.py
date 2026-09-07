@@ -43,5 +43,14 @@ class Creature:
         self.turn_moves = []
         self.effected_moves = []
     
+    def set_moves_rate(self, rate: float, move_class):
+        for move in self.moves:
+            if type(move) == move_class:
+                move.rate = move.rate + rate
+    
+    def reset_moves_rate(self):
+        for move in self.moves:
+            move.rate = 1
+    
     def __str__(self) -> str:
         return f'{self.name}, rank:{self.rank}, hp:{self.current_hp}, defense:{self.defense}'

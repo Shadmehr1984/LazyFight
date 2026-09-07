@@ -10,6 +10,7 @@ class Move:
         self.value = value
         self.accurate = accurate
         self.is_take: bool
+        self.rate: float = 1
     
     def move_take(self):
         self.is_take = randint(0, 100) <= self.accurate
