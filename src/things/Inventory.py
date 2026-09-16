@@ -5,7 +5,10 @@ class Inventory:
         self.items: dict[str, Item] = {}
     
     def add_item(self, item: Item):
-        self.items[item.name] = item
+        if (self.exist_item(item.name)):
+            self.items[item.name].count += item.count
+        else:
+            self.items[item.name] = item
     
     def exist_item(self, item_name: str):
         item = self.items.get(item)
