@@ -11,7 +11,7 @@ class Inventory:
             self.items[item.name] = item
     
     def exist_item(self, item_name: str):
-        item = self.items.get(item)
+        item = self.items.get(item_name)
         return item is not None
 
     def exist_items(self, items_name: list[str]):
