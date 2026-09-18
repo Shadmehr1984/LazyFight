@@ -1,6 +1,6 @@
 class Item:
     def __init__(self, name, count) -> None:
-        if (count < 0):
+        if (count <= 0):
             raise ValueError("count is a positive value")
         self.name = name
         self.count = count

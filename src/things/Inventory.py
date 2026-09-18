@@ -21,6 +21,9 @@ class Inventory:
         return result
     
     def enough_item(self, item_name: str, item_count: int):
+        if (item_count <= 0):
+            raise ValueError("count is a positive value")
+        
         item = self.items[item_name]
         
         if (item is None):
@@ -34,6 +37,9 @@ class Inventory:
         return result
     
     def pick_item(self, item_name: str, item_count: int):
+        if (item_count <= 0):
+            raise ValueError("count is a positive value")
+        
         item = self.items[item_name]
         
         if (item is None):
@@ -65,6 +71,9 @@ class Inventory:
                 del self.items[item_name]
         
         return True
+
+    def len(self):
+        return len(self.items)
     
     def get(self):
         items : dict[str, int] = {}
