@@ -55,4 +55,4 @@ class Player(Creature):
         print()
     
     def __str__(self) -> str:
-        return super.__str__().join(f', exp:{self.exp}')
+        return f'{super().__str__()}, exp:{self.exp}'
