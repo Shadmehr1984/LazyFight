@@ -97,4 +97,4 @@ class Creature:
             self.current_hp = self.max_hp
     
     def __str__(self) -> str:
-        return f'{self.name}, rank:{self.rank}, hp:{self.current_hp}, defense:{self.defense}'
+        return f'{self.name}, group:{self.group.name}, rank:{self.rank}, hp:{self.current_hp}, defense:{self.defense}'

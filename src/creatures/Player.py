@@ -55,4 +55,4 @@ class Player(Creature):
         print()
     
     def __str__(self) -> str:
-        return f'{self.name}, rank:{self.rank}, hp:{self.current_hp}, defense:{self.defense}, exp:{self.exp}'
+        return super.__str__().join(f', exp:{self.exp}')
