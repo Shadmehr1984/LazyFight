@@ -5,8 +5,8 @@ from src.creatures.Creature import Creature
 class Defend(Move):
     move_target: MoveTarget = MoveTarget.myself
     
-    def __init__(self, rank, value, accurate):
-        super().__init__(rank, value, accurate)
+    def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]):
+        super().__init__(rank, value, accurate, rank_up_require)
     
     def effect(self, owner: Creature):
         if (self.is_take):

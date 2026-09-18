@@ -8,10 +8,10 @@ from src.creatures.Creature import Creature
 class Nerf(Move):
     move_target: MoveTarget = MoveTarget.opponent
     
-    def __init__(self, rank, value, accurate, move_class) -> None:
+    def __init__(self, rank, value, accurate, move_class, rank_up_require: dict[str, int]) -> None:
         if (value < 0):
             raise ValueError("value must be greater or equal 0")
-        super().__init__(rank, value, accurate)
+        super().__init__(rank, value, accurate, rank_up_require)
         if move_class not in [Attack, Defend, Heal]:
             raise ValueError("move_class must be type of Attack, Defend or Heal")
         self.move_class = move_class
