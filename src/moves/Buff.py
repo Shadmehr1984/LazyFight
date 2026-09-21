@@ -28,5 +28,6 @@ class Buff(Move):
         elif (self.move_class == Defend):
             move_class_name = "Defend"
         elif (self.move_class == Heal):
-            move_class_name == "Heal"
+            move_class_name = "Heal"
+        
         return f'buff, rank:{self.rank}, value:{self.value}, accurate:{self.accurate}, move class:{move_class_name}'
