@@ -5,6 +5,9 @@ from src.creatures.Creature import Creature
 class Heal(Move):
     move_target: MoveTarget = MoveTarget.myself
     
+    __BASE_VALUE = 40
+    __BASE_ACCURATE = 50
+    
     def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]):
         super().__init__(rank, value, accurate, rank_up_require)
     

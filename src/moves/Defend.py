@@ -5,6 +5,9 @@ from src.creatures.Creature import Creature
 class Defend(Move):
     move_target: MoveTarget = MoveTarget.myself
     
+    __BASE_VALUE = 10
+    __BASE_ACCURATE = 90
+    
     def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]):
         super().__init__(rank, value, accurate, rank_up_require)
     

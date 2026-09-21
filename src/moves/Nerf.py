@@ -12,6 +12,9 @@ class Nerf(Move):
     
     __BUFF_AND_NERF_VALUE_RANK_UP_RATE = 0.1
     
+    __BASE_VALUE = 0.5
+    __BASE_ACCURATE = 70
+    
     def __init__(self, rank, value, accurate, move_class, rank_up_require: dict[str, int]) -> None:
         if (value < 0):
             raise ValueError("value must be greater or equal 0")
