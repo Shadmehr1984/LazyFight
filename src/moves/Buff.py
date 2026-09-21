@@ -4,9 +4,13 @@ from src.moves.Attack import Attack
 from src.moves.Defend import Defend
 from src.moves.Heal import Heal
 from src.creatures.Creature import Creature
+from src.things.Inventory import Inventory
+from math import ceil
 
 class Buff(Move):
     move_target: MoveTarget = MoveTarget.myself
+    
+    __BUFF_AND_NERF_VALUE_RANK_UP_RATE = 0.1
     
     def __init__(self, rank, value, accurate, move_class, rank_up_require: dict[str, int]) -> None:
         if (value < 0):
@@ -15,6 +19,21 @@ class Buff(Move):
         if move_class not in [Attack, Defend, Heal]:
             raise ValueError("move_class must be type of Attack, Defend or Heal")
         self.move_class = move_class
+    
+    def rank_up(self, inventory: Inventory):
+        try:
+            inventory.pick_items(self.rank_up_require)
+        except IndexError as e:
+            return False
+        except ValueError as e:
+            return False
+        
+        self.rank += 1
+        self.value = self.value + Buff._Buff__BUFF_AND_NERF_VALUE_RANK_UP_RATE
+        if (self.accurate < 100): self.accurate = ceil(self.accurate + (self.accurate/Move._Move__ACCURATE_RANK_UP_RATE))
+        if (self.accurate > 100): self.accurate = 100
+        for item_name in self.rank_up_require:
+            self.rank_up_require[item_name] = ceil(self.rank_up_require[item_name] + (self.rank_up_require[item_name]/Move._Move__RANK_UP_REQUIRE_ITEM_COUNT_RATE))
     
     def effect(self, owner: Creature):
         if (self.is_take):
