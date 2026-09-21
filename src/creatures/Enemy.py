@@ -1,5 +1,6 @@
 from src.creatures.Creature import Creature
 from src.creatures.Group import Group
+from src.creatures.exceptions.NotEnoughMovesException import NotEnoughMoveException
 from random import randint
 
 class Enemy(Creature):
@@ -7,7 +8,10 @@ class Enemy(Creature):
         super().__init__(name, rank, group, max_hp)
     
     def select_fight_moves(self):
-        if (len(self.moves) == self.fight_moves_size):
+        if (len(self.moves) < 3):
+            raise NotEnoughMoveException()
+        
+        if (len(self.moves) <= self.fight_moves_size):
             self.fight_moves = self.moves.copy()
         else:
             counter = 0
@@ -20,6 +24,9 @@ class Enemy(Creature):
         print()
     
     def select_turn_moves(self):
+        if (len(self.moves) < 3):
+            raise NotEnoughMoveException()
+        
         counter = 0
         while(counter < self.turn_moves_size):
             index = randint(0, self.fight_moves_size - 1)

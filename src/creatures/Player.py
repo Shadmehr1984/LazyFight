@@ -1,5 +1,6 @@
 from src.creatures.Creature import Creature
 from src.creatures.Group import Group
+from src.creatures.exceptions.NotEnoughMovesException import NotEnoughMoveException
 
 class Player(Creature):
     def __init__(self, name: str, rank: int, group : Group, max_hp: int):
@@ -20,7 +21,10 @@ class Player(Creature):
             self.rank_up()
     
     def select_fight_moves(self):
-        if (len(self.moves) == self.fight_moves_size):
+        if (len(self.moves) < 3):
+            raise NotEnoughMoveException()
+        
+        if (len(self.moves) <= self.fight_moves_size):
             self.fight_moves = self.moves.copy()
         else:
             print('select your fighting moves:')
@@ -40,6 +44,9 @@ class Player(Creature):
         print()
     
     def select_turn_moves(self):
+        if (len(self.moves) < 3):
+            raise NotEnoughMoveException()
+        
         print('select your turn moves:')
         for move_index in range(0, self.fight_moves_size):
             print(move_index, self.fight_moves[move_index])
