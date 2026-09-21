@@ -24,7 +24,7 @@ class Inventory:
         if (item_count <= 0):
             raise ValueError("count is a positive value")
         
-        item = self.items[item_name]
+        item = self.items.get(item_name)
         
         if (item is None):
             raise IndexError('item not exists')
@@ -32,15 +32,15 @@ class Inventory:
         return item.count >= item_count
     def enough_items(self, items: dict[str, int]):
         result = True
-        for item_name, item_count in items:
-            result = result and self.enough_item(item_name, item_count)
+        for item_name in items:
+            result = result and self.enough_item(item_name, item_count=items[item_name])
         return result
     
     def pick_item(self, item_name: str, item_count: int):
         if (item_count <= 0):
             raise ValueError("count is a positive value")
         
-        item = self.items[item_name]
+        item = self.items.get(item_name)
         
         if (item is None):
             raise IndexError('item not exists')
@@ -56,13 +56,16 @@ class Inventory:
         return True
     
     def pick_items(self, items: dict[str, int]):
-        for item_name, item_count in items:
+        for item_name in items:
+            item_count = items[item_name]
             if (not self.exist_item(item_name)):
                 raise IndexError(f'item {item_name} not exists')
-            if (not self.enough_item(item_name)):
+            if (not self.enough_item(item_name, item_count)):
                 raise ValueError(f'not enough {item_name}, count:{item_count}')
         
-        for item_name, item_count in items:
+        for item_name in items:
+            item_count = items[item_name]
+            
             item = self.items[item_name]
             
             item.count -= item_count
@@ -78,7 +81,8 @@ class Inventory:
     def get(self):
         items : dict[str, int] = {}
         
-        for item_name, item_count in self.items:
+        for item_name in self.items:
+            item_count = self.items[item_name].count
             items[item_name] = item_count
         
         return items
