@@ -10,6 +10,7 @@ class Player(Creature):
         self.exp -= self.rank * 100
         self.rank += 1
         self.max_hp = self.rank * 100
+        self.base_defense = self.rank * 10
         if (self.exp >= self.rank * 100):
             self.rank_up()
     

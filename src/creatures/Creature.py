@@ -13,7 +13,7 @@ class Creature:
             self.group_rate = 1
             self.max_hp = max_hp
             self.current_hp: int = max_hp
-            self.base_defense = 0
+            self.base_defense = 10
             self.defense: int = 0
             self.inventory: Inventory = Inventory()
             self.moves: list = []
