@@ -111,7 +111,70 @@ class TestInventory:
         
         assert i.items['gold'].count == 2
     
-    def test_when_item_count_become_zero_item_deleted(self, i):
+    def test_when_item_count_become_zero_item_must_delete(self, i):
         i.pick_item('silver', 12)
         
         assert 'silver' not in i.items.keys()
+    
+    def test_when_item_not_exist_pick_items_raise_err(self, i):
+        with pytest.raises(IndexError):
+            i.pick_items({'coin': 10, 'gold': 1})
+    
+    def test_when_item_not_enough_pick_items_raise_err(self, i):
+        with pytest.raises(ValueError):
+            i.pick_items({'gold': 20, 'silver': 1})
+    def test_when_item_count_become_zero_item_must_delete_by_pick_items_method(self, i):
+        i.pick_items({'gold': 10, 'silver': 1})
+        
+        assert 'gold' not in i.items.keys()
+    
+    def test_pick_items_method(self, i):
+        i.pick_items({'gold': 8, 'silver': 11})
+        
+        assert i.items['gold'].count == 2
+        assert i.items['silver'].count == 1
+    
+    def test_when_inventory_is_empty_len_method_must_return_zero(self):
+        i = Inventory()
+        
+        assert i.len() == 0
+
+    def test_add_item_increases_inventory_len(self):
+        i = Inventory()
+        i.add_item(Item('hojjat', 32))
+        
+        assert i.len() == 1
+        
+        i.add_item(Item('iran', 10))
+        
+        assert i.len() == 2
+    
+    def test_when_pick_item_not_delete_item_len_must_do_not_change(self, i):
+        i.pick_items({'gold': 9, 'silver': 11})
+        
+        assert i.len() == 2
+    def test_when_pick_item_delete_item_len_must_decreases(self, i):
+        i.pick_item('gold', 10)
+        
+        assert i.len() == 1
+        
+        i.pick_item('silver', 12)
+        
+        assert i.len() == 0
+    def test_when_inventory_is_empty_get_return_empty(self):
+        i = Inventory()
+        
+        assert i.get() == {}
+    
+    def test_get_method(self, i):
+        assert i.get() == {'gold': 10, 'silver': 12}
+    
+    def test_when_inventory_is_empty_str_return_empty(self):
+        i = Inventory()
+        
+        assert '' == i.__str__()
+    
+    def test_str_method(self, i):
+        expected = "name:gold, count:10\nname:silver, count:12"
+        
+        assert expected == i.__str__()
