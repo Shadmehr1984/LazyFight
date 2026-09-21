@@ -29,7 +29,7 @@ class Nerf(Move):
             return False
         
         self.rank += 1
-        self.value = self.value + Nerf._Buff__BUFF_AND_NERF_VALUE_RANK_UP_RATE
+        self.value = self.value + Nerf._Nerf__BUFF_AND_NERF_VALUE_RANK_UP_RATE
         if (self.accurate < 100): self.accurate = ceil(self.accurate + (self.accurate/Move._Move__ACCURATE_RANK_UP_RATE))
         if (self.accurate > 100): self.accurate = 100
         for item_name in self.rank_up_require:
