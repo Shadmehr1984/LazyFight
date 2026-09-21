@@ -6,6 +6,9 @@ from random import randint
 class Move:
     move_target: MoveTarget = None
     
+    __VALUE_RANK_UP_RATE = 20
+    __ACCURATE_RANK_UP_RATE = 50
+    
     def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]) -> None:
         self.rank = rank
         self.value = value
@@ -23,8 +26,8 @@ class Move:
             return False
         
         self.rank += 1
-        self.value = int(self.value + (self.value/20))
-        self.accurate = int(self.accurate + (self.accurate/50))
+        self.value = int(self.value + (self.value/Move.__VALUE_RANK_UP_RATE))
+        self.accurate = int(self.accurate + (self.accurate/Move.__ACCURATE_RANK_UP_RATE))
     
     def move_take(self):
         self.is_take = randint(0, 100) <= self.accurate
