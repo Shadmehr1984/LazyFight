@@ -14,6 +14,7 @@ class Nerf(Move):
     
     __BASE_VALUE = 0.5
     __BASE_ACCURATE = 70
+    __BASE_RANK_UP_REQUIRE =  {'dark-token':15, 'oil': 20}
     
     def __init__(self, rank, value, accurate, move_class, rank_up_require: dict[str, int]) -> None:
         if (value < 0):

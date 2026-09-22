@@ -14,6 +14,7 @@ class Buff(Move):
     
     __BASE_VALUE = 0.75
     __BASE_ACCURATE = 70
+    __BASE_RANK_UP_REQUIRE = {'light-token':15, 'glass': 20}
     
     def __init__(self, rank, value, accurate, move_class, rank_up_require: dict[str, int]) -> None:
         if (value < 0):

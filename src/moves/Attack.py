@@ -7,6 +7,7 @@ class Attack(Move):
     
     __BASE_VALUE = 10
     __BASE_ACCURATE = 100
+    __BASE_RANK_UP_REQUIRE = {'fire-token': 5, 'iron': 5}
     
     def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]):
         super().__init__(rank, value, accurate, rank_up_require)

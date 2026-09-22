@@ -29,27 +29,27 @@ class MoveGenerator:
             case 'attack':
                 base_value = Attack._Attack__BASE_VALUE
                 base_accurate = Attack._Attack__BASE_ACCURATE
-                base_rank_up_require = {'fire-token': 5, 'iron': 5}
+                base_rank_up_require = Attack._Attack__BASE_RANK_UP_REQUIRE
                 move_class = Attack
             case 'defend':
                 base_value = Defend._Defend__BASE_VALUE
                 base_accurate = Defend._Defend__BASE_ACCURATE
-                base_rank_up_require = {'earth-token': 5, 'stone': 5}
+                base_rank_up_require = Defend._Defend__BASE_RANK_UP_REQUIRE
                 move_class = Defend
             case 'heal':
                 base_value = Heal._Heal__BASE_VALUE
                 base_accurate = Heal._Heal__BASE_ACCURATE
-                base_rank_up_require = {'plant-token':5, 'wood': 15}
+                base_rank_up_require = Heal._Heal__BASE_RANK_UP_REQUIRE
                 move_class = Heal
             case 'buff':
                 base_value = Buff._Buff__BASE_VALUE
                 base_accurate = Buff._Buff__BASE_ACCURATE
-                base_rank_up_require = {'light-token':15, 'glass': 20}
+                base_rank_up_require = Buff._Buff__BASE_RANK_UP_REQUIRE
                 move_class = Buff
             case 'nerf':
                 base_value = Nerf._Nerf__BASE_VALUE
                 base_accurate = Nerf._Nerf__BASE_ACCURATE
-                base_rank_up_require = {'dark-token':15, 'oil': 20}
+                base_rank_up_require = Nerf._Nerf__BASE_RANK_UP_REQUIRE
                 move_class = Nerf
         
         match buff_or_nerf_move_class:
