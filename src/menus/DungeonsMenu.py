@@ -7,6 +7,7 @@ class DungeonsMenu:
         self.player = player
     
     def open(self):
+        print('----------------------------------------')
         print("DUNGEONS MENU")
         print()
         print(f'select dungeon rank from 1 up to {self.player.rank}')
