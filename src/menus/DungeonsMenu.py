@@ -1,13 +1,14 @@
+from src.menus.SinglePlayerMenu import SinglePlayerMenu
 from src.fighting.Dungeon import Dungeon
 from src.generators.DungeonGenerator import DungeonGenerator
 from src.creatures.Player import Player
 
-class DungeonsMenu:
+class DungeonsMenu(SinglePlayerMenu):
     def __init__(self, player: Player) -> None:
         self.player = player
     
     #if return True means menu should open again 
-    def open(self):
+    def open(self) -> True:
         print('----------------------------------------')
         print("DUNGEONS MENU")
         print()

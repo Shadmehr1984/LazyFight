@@ -1,7 +1,8 @@
+from src.menus.SinglePlayerMenu import SinglePlayerMenu
 from src.moves.Move import Move
 from src.creatures.Player import Player
 
-class MovesMenu:
+class MovesMenu(SinglePlayerMenu):
     def __init__(self, player: Player) -> None:
         self.player = player
     
@@ -12,7 +13,7 @@ class MovesMenu:
         print()
         self.__show_moves()
         print()
-        print('select a move for rank up or print exit to close menu')
+        print('select a move for rank up or enter exit to close menu')
         
         player_input = None
         move_index = None
