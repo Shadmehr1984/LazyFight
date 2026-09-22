@@ -6,6 +6,7 @@ class DungeonsMenu:
     def __init__(self, player: Player) -> None:
         self.player = player
     
+    #if return True means menu should open again 
     def open(self):
         print('----------------------------------------')
         print("DUNGEONS MENU")
@@ -14,7 +15,7 @@ class DungeonsMenu:
         print('enter exit for close menu')
         player_input = input('dungeon rank:')
         
-        if (player_input == 'exit'): return
+        if (player_input == 'exit'): return False
         
         dungeon_rank = None
         
@@ -28,13 +29,13 @@ class DungeonsMenu:
             except(ValueError):
                 print('invalid input, try again')
                 player_input = input('dungeon rank:')
-                if (player_input == 'exit'): return
+                if (player_input == 'exit'): return False
         
         dungeon = self.__generate_dungeon(dungeon_rank)
         
         dungeon.start()
         
-        self.open()
+        return True
     
     def __generate_dungeon(self, dungeon_rank: int) -> Dungeon:
         return DungeonGenerator.generate(dungeon_rank, self.player)
