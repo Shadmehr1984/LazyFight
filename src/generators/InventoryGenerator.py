@@ -13,4 +13,8 @@ class InventoryGenerator:
             item = ItemGenerator.generate()
             inventory.add_item(item)
         
+        #add a basic coin
+        coin_count = 10 + (rank * 5)
+        inventory.add_item('coin', coin_count)
+        
         return inventory
