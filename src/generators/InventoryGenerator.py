@@ -1,5 +1,6 @@
 from src.generators.ItemGenerator import ItemGenerator
 from src.things.Inventory import Inventory
+from src.things.Item import Item
 
 class InventoryGenerator:
     @staticmethod
@@ -15,6 +16,6 @@ class InventoryGenerator:
         
         #add a basic coin
         coin_count = 10 + (rank * 5)
-        inventory.add_item('coin', coin_count)
+        inventory.add_item(Item('coin', coin_count))
         
         return inventory
