@@ -78,7 +78,11 @@ class MoveGenerator:
             rate = Nerf._Nerf__BUFF_AND_NERF_VALUE_RANK_UP_RATE
         
             for i in range(2, rank + 1):
+                #for keep base in x.xx format
                 base = base + rate
+                base *= 100
+                base = ceil(base)
+                base /= 100
         
         else:
             rate = Move._Move__VALUE_RANK_UP_RATE
@@ -108,3 +112,4 @@ class MoveGenerator:
         for i in range(2, rank + 1):
             for item_name in base:
                 base[item_name] = ceil(base[item_name] + (base[item_name]/rate))
+        return base 
