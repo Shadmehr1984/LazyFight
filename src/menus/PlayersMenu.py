@@ -17,7 +17,8 @@ class PlayersMenu:
         player_input = None
         while(True):
             try:
-                player_input = input('select player or enter exit to close the game')
+                print("select player or enter exit to close menu")
+                player_input = input('player index:')
                 if (player_input == 'exit'): return False
                 
                 player_index = int(player_input)
@@ -30,10 +31,14 @@ class PlayersMenu:
                 print('invalid input, try again')
         
         reopen_menu = True
-        while(True):
+        while(reopen_menu):
             reopen_menu = (ActivityMenu(self.player)).open()
+        
+        return True
 
     def __show_players(self):
         print('players:')
+        player_index = 0
         for player in self.players:
-            print(f'{player.name} {player.exp} exp')
+            print(f'{player_index}: {player.name} {player.exp} exp')
+            player_index += 1
