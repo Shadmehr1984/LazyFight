@@ -1,4 +1,6 @@
 from src.things.Item import Item
+from src.things.Exceptions.ItemNotExistException import ItemNotExistException
+from src.things.Exceptions.ItemNotEnoughException import ItemNotEnoughException
 
 class Inventory:
     def __init__(self) -> None:
@@ -27,7 +29,7 @@ class Inventory:
         item = self.items.get(item_name)
         
         if (item is None):
-            raise IndexError('item not exists')
+            raise ItemNotExistException('item not exists')
         
         return item.count >= item_count
     def enough_items(self, items: dict[str, int]):
@@ -43,10 +45,10 @@ class Inventory:
         item = self.items.get(item_name)
         
         if (item is None):
-            raise IndexError('item not exists')
+            raise ItemNotExistException('item not exists')
         
         if (item.count < item_count):
-            raise ValueError('not enough item')
+            raise ItemNotEnoughException('not enough item')
         
         item.count -= item_count
         
@@ -59,9 +61,9 @@ class Inventory:
         for item_name in items:
             item_count = items[item_name]
             if (not self.exist_item(item_name)):
-                raise IndexError(f'item {item_name} not exists')
+                raise ItemNotExistException(f'item {item_name} not exists')
             if (not self.enough_item(item_name, item_count)):
-                raise ValueError(f'not enough {item_name}, count:{item_count}')
+                raise ItemNotEnoughException(f'not enough {item_name}, count:{item_count}')
         
         for item_name in items:
             item_count = items[item_name]

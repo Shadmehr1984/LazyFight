@@ -1,6 +1,8 @@
 import pytest
 from src.things.Inventory import Inventory
 from src.things.Item import Item
+from src.things.Exceptions.ItemNotEnoughException import ItemNotEnoughException
+from src.things.Exceptions.ItemNotExistException import ItemNotExistException
 
 @pytest.fixture()
 def i():
@@ -66,7 +68,7 @@ class TestInventory:
             i.enough_item('gold', -4)
     
     def test_when_item_not_exist_enough_item_raise_err(self, i):
-        with pytest.raises(IndexError):
+        with pytest.raises(ItemNotExistException):
             i.enough_item('coin', 1)
     
     def test_enough_item_method(self, i):
@@ -84,7 +86,7 @@ class TestInventory:
             i.enough_items({'gold': 6, 'silver': -1})
     
     def test_when_item_not_exist_enough_items_raise_err(self, i):
-        with pytest.raises(IndexError):
+        with pytest.raises(ItemNotExistException):
             i.enough_items({'coin': 45, 'silver': 1})
     
     def test_enough_items_method(self, i):
@@ -99,11 +101,11 @@ class TestInventory:
             i.pick_item('silver', -777)
     
     def test_when_item_not_exist_pick_item_method_raise_err(self, i):
-        with pytest.raises(IndexError):
+        with pytest.raises(ItemNotExistException):
             i.pick_item('coin', 14)
     
     def test_when_item_not_enough_pick_item_method_raise_err(self, i):
-        with pytest.raises(ValueError):
+        with pytest.raises(ItemNotEnoughException):
             i.pick_item('gold', 20)
     
     def test_pick_item_method(self, i):
@@ -117,11 +119,11 @@ class TestInventory:
         assert 'silver' not in i.items.keys()
     
     def test_when_item_not_exist_pick_items_raise_err(self, i):
-        with pytest.raises(IndexError):
+        with pytest.raises(ItemNotExistException):
             i.pick_items({'coin': 10, 'gold': 1})
     
     def test_when_item_not_enough_pick_items_raise_err(self, i):
-        with pytest.raises(ValueError):
+        with pytest.raises(ItemNotEnoughException):
             i.pick_items({'gold': 20, 'silver': 1})
     def test_when_item_count_become_zero_item_must_delete_by_pick_items_method(self, i):
         i.pick_items({'gold': 10, 'silver': 1})
