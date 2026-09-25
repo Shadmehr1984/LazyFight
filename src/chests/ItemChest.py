@@ -1,11 +1,12 @@
 from src.things.Item import Item
+from src.chests.Chest import Chest
 from src.chests.exceptions.NotEnoughItemsForChestException import NotEnoughItemsForChestException
 from src.chests.exceptions.NotValidItemCountException import NotValidItemCountException
 from src.chests.exceptions.NotEnoughCoinException import NotEnoughCoinException
 from src.things.Inventory import Inventory
 from random import randint
 
-class ItemChest:
+class ItemChest(Chest):
     def __init__(self, rank: int, items: list[Item]) -> None:
         if (rank < 1):
             raise ValueError(f"invalid rank{rank}")

@@ -1,11 +1,12 @@
 from src.moves.Move import Move
+from src.chests.Chest import Chest
 from src.chests.exceptions.NotEnoughMovesForChestException import NotEnoughMovesForChestException
 from src.chests.exceptions.ChestAndMovesRankNotSameException import ChestAndMovesRankNotSameException
 from src.chests.exceptions.NotEnoughCoinException import NotEnoughCoinException
 from src.things.Inventory import Inventory
 from random import randint
 
-class MoveChest:
+class MoveChest(Chest):
     def __init__(self, rank: int, moves: list[Move]) -> None:
         if (rank < 1):
             raise ValueError(f"invalid rank{rank}")
