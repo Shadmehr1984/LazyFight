@@ -64,3 +64,6 @@ class Player(Creature):
     
     def __str__(self) -> str:
         return f'{super().__str__()}, exp:{self.exp}'
+    
+    def __eq__(self, __value: 'Player') -> bool:
+        return self.name == __value.name
