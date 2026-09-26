@@ -66,11 +66,11 @@ class Creature:
         
         match status:
             case 1:
-                self.group_rate = 1.25
+                self.group_rate = 1.1
             case 0:
                 self.group_rate = 1
             case -1:
-                self.group_rate = 0.75
+                self.group_rate = 0.9
     
     def reset_group_rate(self):
         self.group_rate = 1
