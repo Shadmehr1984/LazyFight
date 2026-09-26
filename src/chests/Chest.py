@@ -1,4 +1,7 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+from src.things.Inventory import Inventory
 
 class Chest(ABC):
-    pass
+    @abstractmethod
+    def open(self, inventory: Inventory):
+        pass
