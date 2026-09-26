@@ -1,8 +1,10 @@
 from src.fighting.Fight import Fight
 from src.things.Inventory import Inventory
+from src.creatures.Player import Player
+from src.creatures.Enemy import Enemy
 
 class Dungeon:
-    def __init__(self, player, enemies) -> None:
+    def __init__(self, player: Player, enemies: list[Enemy]) -> None:
         self.player = player
         self.enemies = enemies
         self.inventory: Inventory = Inventory()
@@ -26,6 +28,7 @@ class Dungeon:
             if (not is_win):
                 print('dungeon take you in dark...')
                 print()
+                self.player.reset()
                 return False
         print('now dungeon is clear!')
         print('enemies items:')
