@@ -3,9 +3,10 @@ from src.creatures.Player import Player
 from src.menus.DungeonsMenu import DungeonsMenu
 from src.menus.InventoryMenu import InventoryMenu
 from src.menus.MovesMenu import MovesMenu
+from src.menus.ChestMenu import ChestMenu
 
 class ActivityMenu(SinglePlayerMenu):
-    menus = [DungeonsMenu, MovesMenu, InventoryMenu]
+    menus = [DungeonsMenu, MovesMenu, InventoryMenu, ChestMenu]
     
     def __init__(self, player: Player) -> None:
         self.player = player
@@ -45,3 +46,4 @@ class ActivityMenu(SinglePlayerMenu):
         print('0 dungeon menu')
         print('1 moves menu')
         print('2 inventory menu')
+        print('3 chest menu')
