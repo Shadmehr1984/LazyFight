@@ -3,7 +3,7 @@ from src.creatures.Player import Player
 
 class SinglePlayerMenu(ABC):
     def __init__(self, player: Player) -> None:
-        self.player = Player
+        self.player = player
     
     @abstractmethod
     def open(self) -> bool:
