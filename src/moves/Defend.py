@@ -18,4 +18,4 @@ class Defend(Move):
             owner.get_defend(value)
     
     def __str__(self) -> str:
-        return f'defend, rank:{self.rank}, value{self.value}, accurate:{self.accurate}'
+        return f'defend, rank:{self.rank}, value:{self.value}, accurate:{self.accurate}'
