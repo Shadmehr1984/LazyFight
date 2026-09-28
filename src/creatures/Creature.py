@@ -1,12 +1,21 @@
 from src.things.Inventory import Inventory
 from src.creatures.Group import Group
 from math import fabs
+from src.creatures.exceptions.NameIsToBigException import NameIsToBigException
+from src.creatures.exceptions.NameIsToSmallException import NameIsToSmallException
 
 class Creature:
+    max_name_len = 8
+    min_name_len = 4
+    
     fight_moves_size = 6
     turn_moves_size = 3
     
     def __init__(self, name: str, rank: int, group: Group, max_hp):
+            if (len(name) > self.max_name_len):
+                raise NameIsToBigException()
+            if (len(name) < self.min_name_len):
+                raise NameIsToSmallException()
             self.name = name
             self.rank: int = rank
             self.group: Group = group
