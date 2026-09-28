@@ -24,6 +24,7 @@ class CreateNewPlayerMenu:
                     break
             if (is_duplicate):
                 print('this name use by another player')
+                is_duplicate = False
             else:
                 name = player_input
                 break
