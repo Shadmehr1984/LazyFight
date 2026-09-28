@@ -12,7 +12,7 @@ class Nerf(Move):
     
     __BUFF_AND_NERF_VALUE_RANK_UP_RATE = 0.1
     
-    __BASE_VALUE = 0.5
+    __BASE_VALUE = 0.10
     __BASE_ACCURATE = 70
     __BASE_RANK_UP_REQUIRE =  {'dark-token':15, 'oil': 20}
     
