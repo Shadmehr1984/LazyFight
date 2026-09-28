@@ -2,8 +2,8 @@ from src.creatures.Player import Player
 from src.creatures.Group import Group
 
 class CreateNewPlayerMenu:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, players: list[Player]) -> None:
+        self.players = players
     
     def open(self) -> Player:
         print('----------------------------------------')
@@ -12,11 +12,18 @@ class CreateNewPlayerMenu:
         
         print('enter new player\'s name')
         player_input = None
+        is_duplicate = False
         name = ''
         while(True):
             player_input = input('name:')
             if (not player_input.isalnum()):
                 print('name must be alpha-numeric, try again')
+            for player in self.players:
+                if player_input == player.name:
+                    is_duplicate = True
+                    break
+            if (is_duplicate):
+                print('this name use by another player')
             else:
                 name = player_input
                 break

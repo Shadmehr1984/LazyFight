@@ -28,7 +28,7 @@ class MainMenu:
             
             match menu:
                 case '0':
-                    new_player = (CreateNewPlayerMenu()).open()
+                    new_player = (CreateNewPlayerMenu(self.players)).open()
                     if (new_player in self.players):
                         print('duplicate player, select another name')
                     else:
