@@ -16,8 +16,8 @@ CREATE TABLE move(
 id INT PRIMARY KEY NOT NULL IDENTITY(1, 1),
 move_type VARCHAR(6) NOT NULL CHECK (move_type IN('attack', 'defend', 'heal', 'nerf', 'buff')),
 rank INT NOT NULL DEFAULT 1,
-value INT NOT NULL,
-accurate FLOAT(2) NOT NULL,
+value DECIMAL(5, 2) NOT NULL,
+accurate INT NOT NULL,
 move_target VARCHAR(6),
 CHECK ((move_type IN('nerf', 'buff') AND move_target IN('attack', 'heal', 'defend')) OR (move_type IN('attack', 'heal', 'defend') AND move_target IS NULL))
 );
