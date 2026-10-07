@@ -1,5 +1,6 @@
 from database.Connector import Connector
 from src.things.Inventory import Inventory
+from src.things.Item import Item
 from src.models.exceptions.PlayerNotExistsException import PlayerNotExistsException
 
 class InventoryModel:
@@ -7,8 +8,27 @@ class InventoryModel:
         self.player_id = player_id
         self.inventory = inventory
     
+    @staticmethod
+    def load(player_id: int) -> Inventory:
+        exists = InventoryModel.__exists(player_id)
+        
+        if (not exists):
+            raise PlayerNotExistsException()
+        
+        query = f"SELECT item_name, item_count FROM player_inventory WHERE player_id = {player_id}"
+        
+        Connector.execute(query)
+        items = Connector.result()
+        
+        inventory = Inventory()
+        
+        for item in items:
+            inventory.add_item(Item(item[0], item[1]))
+        
+        return inventory
+    
     def save(self):
-        exists = self.__exists()
+        exists = self.__exists(self.player_id)
         
         if (not exists):
             raise PlayerNotExistsException()
@@ -60,8 +80,9 @@ class InventoryModel:
         
         Connector.execute(query, commit=True)
     
-    def __exists(self) -> bool:
-        Connector.execute(f"SELECT COUNT(*) FROM dbo.player WHERE id = {self.player_id}")
+    @staticmethod
+    def __exists(player_id: int) -> bool:
+        Connector.execute(f"SELECT COUNT(*) FROM dbo.player WHERE id = {player_id}")
         
         #result is a list of tuples
         result = Connector.result()[0][0]
