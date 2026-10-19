@@ -1,12 +1,13 @@
 from database.Connector import Connector
+from src.creatures.Player import Player
 from src.things.Inventory import Inventory
 from src.things.Item import Item
 from src.models.exceptions.PlayerNotExistsException import PlayerNotExistsException
 
 class InventoryModel:
-    def __init__(self, player_id: int, inventory: Inventory) -> None:
-        self.player_id = player_id
-        self.inventory = inventory
+    def __init__(self, player: Player) -> None:
+        self.player_id = player.player_id
+        self.inventory: Inventory = player.inventory
     
     @staticmethod
     def load(player_id: int) -> Inventory:
