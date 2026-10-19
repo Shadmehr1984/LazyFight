@@ -11,10 +11,7 @@ class InventoryModel:
     
     @staticmethod
     def load(player_id: int) -> Inventory:
-        exists = InventoryModel.__exists(player_id)
-        
-        if (not exists):
-            raise PlayerNotExistsException()
+        InventoryModel.__exists(player_id)
         
         query = f"SELECT item_name, item_count FROM player_inventory WHERE player_id = {player_id}"
         
@@ -29,10 +26,7 @@ class InventoryModel:
         return inventory
     
     def save(self):
-        exists = self.__exists(self.player_id)
-        
-        if (not exists):
-            raise PlayerNotExistsException()
+        self.__exists(self.player_id)
         
         #old_inventory = [(item_name1, item_count1), ...]
         old_inventory = self.__get_old_inventory()
@@ -82,17 +76,22 @@ class InventoryModel:
         Connector.execute(query, commit=True)
     
     @staticmethod
-    def __exists(player_id: int) -> bool:
+    def __exists(player_id: int):
         Connector.execute(f"SELECT COUNT(*) FROM dbo.player WHERE id = {player_id}")
         
         #result is a list of tuples
         result = Connector.result()[0][0]
         
+        exists = None
+        
         match result:
             case 1:
-                return True
+                exists = True
             case 0:
-                return False
+                exists = False
+        
+        if (not exists):
+            raise PlayerNotExistsException()
     
     def __get_old_inventory(self):
         old_inventory = None
