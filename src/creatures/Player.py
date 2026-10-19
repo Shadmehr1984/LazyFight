@@ -4,6 +4,7 @@ from src.creatures.exceptions.NotEnoughMovesException import NotEnoughMoveExcept
 
 class Player(Creature):
     def __init__(self, name: str, rank: int, group : Group, max_hp: int):
+        self.player_id = None
         self.exp = 0
         super().__init__(name, rank, group, max_hp)
     
