@@ -37,8 +37,6 @@ class InventoryModel:
         update_items = []
         delete_items = []
         insert_items = []
-        
-        update_items = []
 
         old_dict = {item[0]: item for item in old_inventory}
 
