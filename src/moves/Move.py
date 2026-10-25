@@ -12,6 +12,7 @@ class Move:
     __RANK_UP_REQUIRE_ITEM_COUNT_RATE = 2
     
     def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]) -> None:
+        self.move_id = None
         self.rank = rank
         self.value = value
         self.accurate = accurate
