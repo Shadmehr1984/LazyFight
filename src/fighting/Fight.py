@@ -1,6 +1,7 @@
 from src.fighting.Turn import Turn
 from src.creatures.Player import Player
 from src.creatures.Enemy import Enemy
+from src.models.PlayerModel import PlayerModel
 
 class Fight:
     rank_2_exp_rate = 10
@@ -41,6 +42,9 @@ class Fight:
             print('you lose')
             self.is_win = False
     
+    def save(self):
+        (PlayerModel(self.player)).save()
+    
     def start(self):
         self.preparing()
         print('fight start!')
@@ -48,4 +52,5 @@ class Fight:
         self.reset_creatures()
         print()
         self.set_fight_result()
+        self.save()
         return self.is_win

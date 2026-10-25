@@ -2,6 +2,7 @@ from src.fighting.Fight import Fight
 from src.things.Inventory import Inventory
 from src.creatures.Player import Player
 from src.creatures.Enemy import Enemy
+from src.models.PlayerModel import PlayerModel
 
 class Dungeon:
     def __init__(self, player: Player, enemies: list[Enemy]) -> None:
@@ -13,6 +14,9 @@ class Dungeon:
     def make_dungeon_inventory(self):
         for enemy in self.enemies:
             self.inventory.add_all_inventory(enemy.inventory)
+    
+    def save(self):
+        (PlayerModel(self.player)).save()
     
     def start(self):
         print('dungeon was open!')
@@ -36,4 +40,5 @@ class Dungeon:
         self.player.inventory.add_all_inventory(self.inventory)
         print()
         self.player.reset()
+        self.save()
         return True
