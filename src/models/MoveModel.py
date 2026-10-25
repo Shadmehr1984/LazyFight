@@ -190,7 +190,15 @@ class MoveModel:
             move_target = None
             
             if (isinstance(move, Nerf) or isinstance(move, Buff)):
-                move_target = move.move_class
+                if (move.move_class == Attack):
+                    move_target = 'attack'
+                elif (move.move_class == Heal):
+                    move_target = 'heal'
+                elif(move.move_class == Defend):
+                    move_target = 'defend'
+                else:
+                    print(move.move_class)
+                    raise ValueError('it should be customize')
             
             new_moves.append(tuple([move_id, move_type, move_rank, move_target]))
         
