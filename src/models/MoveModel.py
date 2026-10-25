@@ -63,7 +63,6 @@ class MoveModel:
         query += self.__build_delete_query(delete_moves)
         
         Connector.execute(query, commit=True)
-        return query
     
     def __build_update_query(self, update_moves: list[tuple]) -> str:
         if (len(update_moves) == 0):
