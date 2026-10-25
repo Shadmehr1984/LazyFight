@@ -10,7 +10,7 @@ class InventoryModel:
         self.inventory: Inventory = player.inventory
     
     @staticmethod
-    def load(player_id: int) -> Inventory:
+    def load_player_inventory(player_id: int) -> Inventory:
         InventoryModel.__exists(player_id)
         
         query = f"SELECT item_name, item_count FROM player_inventory WHERE player_id = {player_id}"
