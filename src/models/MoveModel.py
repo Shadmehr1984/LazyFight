@@ -147,12 +147,12 @@ class MoveModel:
         return query
 
     def __get_old_moves(self):
-        query = """
+        query = f"""
         SELECT player_move.move_id, move.move_type, move.rank, move.move_target
         FROM player_move
         LEFT JOIN move
         ON player_move.move_id = move.id
-        WHERE player_move.player_id = 1;
+        WHERE player_move.player_id = {self.player.player_id};
         """
 
         Connector.execute(query)
