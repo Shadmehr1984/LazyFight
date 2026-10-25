@@ -6,7 +6,7 @@ class Heal(Move):
     move_target: MoveTarget = MoveTarget.myself
     
     __BASE_VALUE = 20
-    __BASE_ACCURATE = 30
+    __BASE_ACCURATE = 20
     __BASE_RANK_UP_REQUIRE = {'plant-token':5, 'wood': 15}
     
     def __init__(self, rank, value, accurate, rank_up_require: dict[str, int]):
