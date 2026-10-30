@@ -39,7 +39,7 @@ class TestDungeon:
 
         assert result is False
         player.reset.assert_called_once()
-        player.inventory.add_all_inventory.assert_not_called()
+        assert player.inventory.get() == {}
         save.assert_not_called()
         fight_class.assert_called_once_with(player, enemy)
 
@@ -87,4 +87,4 @@ class TestDungeon:
         ]
         assert player.inventory.get() == {"coin": 5, "iron": 2, "wood": 3}
         player.reset.assert_called_once()
-        save.assert_called_once_with(dungeon)
+        save.assert_called_once_with()
