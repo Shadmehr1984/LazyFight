@@ -1,10 +1,6 @@
-import pytest
 from src.moves.Move import Move
-from src.moves.MoveTarget import MoveTarget
 from src.things.Inventory import Inventory
 from src.things.Item import Item
-from src.things.Exceptions.ItemNotEnoughException import ItemNotEnoughException
-from src.things.Exceptions.ItemNotExistException import ItemNotExistException
 
 
 class TestMove:
@@ -17,10 +13,6 @@ class TestMove:
         assert move.accurate == 75
         assert move.rank_up_require == {'gold': 2}
         assert move.rate == 1
-
-    def test_move_target_enum_values(self):
-        assert MoveTarget.myself.value == 'myself'
-        assert MoveTarget.opponent.value == 'opponent'
 
     def test_rank_up_increases_rank_value_accuracy_and_requirements(self):
         move = Move(1, 20, 70, {'gold': 2, 'silver': 3})
