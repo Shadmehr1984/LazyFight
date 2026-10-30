@@ -99,3 +99,15 @@ def test_calculate_rank_up_require(rank, base, expected):
     # The method mutates its input, so each case receives its own dictionary.
     result = MoveGenerator._MoveGenerator__calculate_rank_up_require(rank, base)
     assert result == expected
+
+
+def test_repeated_generation_does_not_increase_requirements_between_calls(monkeypatch):
+    monkeypatch.setattr(Attack, "_Attack__BASE_RANK_UP_REQUIRE", {"iron": 5})
+
+    first_move = MoveGenerator.generate(2, "attack")
+    second_move = MoveGenerator.generate(2, "attack")
+
+    assert first_move.rank_up_require == {"iron": 8}
+    assert second_move.rank_up_require == {"iron": 8}
+    assert Attack._Attack__BASE_RANK_UP_REQUIRE == {"iron": 5}
+    assert first_move.rank_up_require is not second_move.rank_up_require
