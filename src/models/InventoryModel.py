@@ -124,7 +124,7 @@ class InventoryModel:
         #delete last ','
         where_clause_statement = where_clause_statement[:-1]
         
-        where_clause_statement = f"WHERE item_name IN ({where_clause_statement})"
+        where_clause_statement = f"WHERE player_id = {self.player_id} AND item_name IN ({where_clause_statement})"
         
         query = "UPDATE [dbo].[player_inventory]\nSET item_count = CASE item_name\n"
         query += set_clause_statement
@@ -168,7 +168,7 @@ class InventoryModel:
         where_clause_statement = "(" + where_clause_statement + ")"
         
         query = "DELETE FROM [dbo].[player_inventory]\n"
-        query += "WHERE item_name IN"
+        query += f"WHERE player_id = {self.player_id} AND item_name IN"
         query += where_clause_statement
         query += ";"
         
