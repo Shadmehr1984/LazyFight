@@ -1,9 +1,7 @@
-import pytest
 from unittest.mock import Mock
 
 from src.fighting.Turn import Turn
 from src.moves.Attack import Attack
-from src.moves.Buff import Buff
 from src.moves.Defend import Defend
 from src.moves.Heal import Heal
 from src.moves.Nerf import Nerf
@@ -63,7 +61,7 @@ class TestTurn:
 
         turn.execute_moves_effect(player_defend, enemy_heal)
 
-        assert calls == [("defend", player), ("heal", enemy)]
+        assert calls == [("heal", enemy), ("defend", player)]
         assert player_defend.move_target == MoveTarget.myself
         assert enemy_heal.move_target == MoveTarget.myself
 
