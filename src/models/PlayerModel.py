@@ -102,7 +102,7 @@ class PlayerModel:
     @staticmethod
     def load_all_players() -> list[Player]:
         query = """
-        SELECT TOP 1000 [id]
+        SELECT [id]
         ,[name]
         ,[rank]
         ,[max_hp]
@@ -115,6 +115,14 @@ class PlayerModel:
         Connector.execute(query)
         
         players = Connector.result()
+        
+        players_id = []
+        
+        for player in players:
+            players_id.append(player[0])
+        
+        inventories = InventoryModel.load_all_players_inventory(players_id)
+        players_moves = MoveModel.load_all_players_moves(players_id)
         
         for player_index in range(0, len(players)):
             player = players[player_index]
@@ -147,8 +155,8 @@ class PlayerModel:
             player.base_defense = player_base_defense
             player.exp = player_exp
             
-            player.inventory = InventoryModel.load_player_inventory(player_id)
-            player.moves = MoveModel.load_player_moves(player_id)
+            player.inventory = inventories[player_id]
+            player.moves = players_moves[player_id]
             
             players[player_index] = player
         

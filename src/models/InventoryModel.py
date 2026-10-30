@@ -10,6 +10,33 @@ class InventoryModel:
         self.inventory: Inventory = player.inventory
     
     @staticmethod
+    def load_all_players_inventory(players_id: list[int]) -> dict[int, Inventory]:
+        where_clause_statement = ""
+        for player_id in players_id:
+            where_clause_statement += f"{player_id},"
+        #remove last ,
+        where_clause_statement = where_clause_statement[:-1]
+        where_clause_statement =  "(" + where_clause_statement + ")"
+        
+        query = f"SELECT player_id, item_name, item_count FROM player_inventory WHERE player_id IN {where_clause_statement}"
+        
+        Connector.execute(query)
+        result = Connector.result()
+        
+        inventories: dict[int, Inventory] = dict()
+        for player_id in players_id:
+            inventories[player_id] = Inventory()
+        
+        #item = (player_id, item_name, item_count)
+        for item in result:
+            player_id = item[0]
+            item_name = item[1]
+            item_count = item[2]
+            inventories.get(player_id).add_item(Item(item_name, item_count))
+        
+        return inventories
+    
+    @staticmethod
     def load_player_inventory(player_id: int) -> Inventory:
         InventoryModel.__exists(player_id)
         

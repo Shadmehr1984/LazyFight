@@ -219,6 +219,50 @@ class MoveModel:
         MoveModel.last_id = Connector.result()[0][0]
     
     @staticmethod
+    def load_all_players_moves(players_id: list[int]) -> dict[int, list[Move]]:
+        where_clause_statement = ""
+        for player_id in players_id:
+            where_clause_statement += f"{player_id},"
+        #remove last ,
+        where_clause_statement = where_clause_statement[:-1]
+        where_clause_statement = "(" + where_clause_statement + ")"
+        
+        query = f"SELECT player_id, move_id FROM player_move WHERE player_id IN {where_clause_statement}"
+        
+        Connector.execute(query)
+        #result = [(player_id, move_id)]
+        result = Connector.result()
+        
+        moves_id_players_id: dict[int, int] = dict()
+        for player_id_move_id in result:
+            move_id = player_id_move_id[1]
+            player_id = player_id_move_id[0]
+            moves_id_players_id[move_id] = player_id
+        
+        where_clause_statement = ""
+        for player_move in result:
+            move_id = player_move[1]
+            where_clause_statement += f"{move_id},"
+        #remove last ,
+        where_clause_statement = where_clause_statement[:-1]
+        where_clause_statement = "(" + where_clause_statement + ")"
+        
+        query = f"SELECT id, move_type, rank, move_target FROM move WHERE id IN {where_clause_statement}"
+        
+        Connector.execute(query)
+        result = Connector.result()
+        
+        players_id_moves: dict[int, list[Move]] = dict()
+        for raw_move in result:
+            move = MoveModel.__conv_raw_move_2_move_obj(raw_move)
+            player_id =  moves_id_players_id[move.move_id]
+            if (player_id not in players_id_moves):
+                players_id_moves[player_id] = []
+            players_id_moves[player_id].append(move)
+        
+        return players_id_moves
+    
+    @staticmethod
     def load_player_moves(player_id: int) -> list[Move]:
         MoveModel.__exists(player_id)
         
@@ -227,25 +271,33 @@ class MoveModel:
         for move_index in range(0, len(moves)):
             move = moves[move_index]
             
-            move_id = move[0]
-            
-            match move[1]:
-                case 'attack':
-                    move = MoveGenerator.generate(move[2], 'attack')
-                case 'defend':
-                    move = MoveGenerator.generate(move[2], 'defend')
-                case 'heal':
-                    move = MoveGenerator.generate(move[2], 'heal')
-                case 'buff':
-                    move = MoveGenerator.generate(move[2], 'buff', move[3])
-                case 'nerf':
-                    move = MoveGenerator.generate(move[2], 'nerf', move[3])
-            
-            move.move_id = move_id
+            move = MoveModel.__conv_raw_move_2_move_obj(move)
             
             moves[move_index] = move
         
         return moves
+
+    @staticmethod
+    def __conv_raw_move_2_move_obj(raw_move: tuple) -> Move:
+        move: Move = None
+        
+        move_id = raw_move[0]
+        
+        match raw_move[1]:
+            case 'attack':
+                move = MoveGenerator.generate(raw_move[2], 'attack')
+            case 'defend':
+                move = MoveGenerator.generate(raw_move[2], 'defend')
+            case 'heal':
+                move = MoveGenerator.generate(raw_move[2], 'heal')
+            case 'buff':
+                move = MoveGenerator.generate(raw_move[2], 'buff', raw_move[3])
+            case 'nerf':
+                move = MoveGenerator.generate(raw_move[2], 'nerf', raw_move[3])
+            
+        move.move_id = move_id
+            
+        return move
     
     @staticmethod
     def __exists(player_id: int):
