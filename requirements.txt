@@ -1,0 +1,6 @@
+# Runtime dependencies
+mssql-python
+python-dotenv
+
+# Test dependencies
+pytest
