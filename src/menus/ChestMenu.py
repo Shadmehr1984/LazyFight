@@ -1,4 +1,5 @@
 from src.creatures.Player import Player
+from src.models.PlayerModel import PlayerModel
 from src.menus.SinglePlayerMenu import SinglePlayerMenu
 from src.generators.ChestGenerator import ChestGenerator
 from src.chests.Chest import Chest
@@ -40,6 +41,8 @@ class ChestMenu(SinglePlayerMenu):
                         self.player.add_move(chest_content)
                     elif (isinstance(chest_content, Item)):
                         self.player.inventory.add_item(chest_content)
+                    #save
+                    (PlayerModel(self.player)).save()
             except NotEnoughCoinException:
                 coins = self.player.inventory.items.get('coin')
                 coins_count = 0
@@ -48,8 +51,6 @@ class ChestMenu(SinglePlayerMenu):
                 print(f'not enough coin, your coins:{coins_count}')
             except Exception:
                 print('invalid input, try again')
-        
-        return True
     
     def __generate_chests(self) -> list[Chest]:
         chests = []

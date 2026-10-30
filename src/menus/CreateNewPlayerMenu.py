@@ -1,5 +1,6 @@
 from src.creatures.Player import Player
 from src.creatures.Group import Group
+from src.models.PlayerModel import PlayerModel
 
 class CreateNewPlayerMenu:
     def __init__(self, players: list[Player]) -> None:
@@ -47,4 +48,9 @@ class CreateNewPlayerMenu:
             case 'scissor':
                 group = Group.scissor
         
-        return Player(name, 1, group, 100)
+        new_player = Player(name, 1, group, 100)
+        
+        #save
+        (PlayerModel(new_player)).save()
+        
+        return new_player

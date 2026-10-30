@@ -1,5 +1,6 @@
 from src.menus.SinglePlayerMenu import SinglePlayerMenu
 from src.moves.Move import Move
+from src.models.MoveModel import MoveModel
 from src.creatures.Player import Player
 
 class MovesMenu(SinglePlayerMenu):
@@ -66,6 +67,8 @@ class MovesMenu(SinglePlayerMenu):
         
         if (commit):
             move.rank_up(player_inventory)
+            #save
+            (MoveModel(self.player)).save()
             print(move)
         
         return True
