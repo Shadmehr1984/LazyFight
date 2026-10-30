@@ -91,7 +91,7 @@ class Inventory:
     
     def add_all_inventory(self, inventory: 'Inventory'):
         for item in inventory.items.values():
-            self.add_item(item)
+            self.add_item(item.copy())
     
     def __str__(self) -> str:
         result = ''

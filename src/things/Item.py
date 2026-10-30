@@ -7,6 +7,9 @@ class Item:
     
     def get(self):
         return {'name': self.name, 'count': self.count}
+
+    def copy(self):
+        return Item(self.name, self.count)
     
     def __eq__(self, __value: 'Item') -> bool:
         return self.name == __value.name
