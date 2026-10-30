@@ -92,7 +92,7 @@ def test_calculate_accuracy_caps_at_one_hundred():
     [
         (1, {"iron": 5}, {"iron": 5}),
         (2, {"iron": 5}, {"iron": 8}),
-        (3, {"iron": 5}, {"iron": 8}),
+        (3, {"iron": 5}, {"iron": 12}),
     ],
 )
 def test_calculate_rank_up_require(rank, base, expected):
