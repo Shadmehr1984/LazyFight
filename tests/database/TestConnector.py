@@ -38,6 +38,6 @@ class TestConnector:
 
     def test_result_returns_none_when_fetchall_has_no_result_set(self):
         cursor = Mock()
-        cursor.fetchall.side_effect = mssql_python.exceptions.ProgrammingError("no result")
+        cursor.fetchall.side_effect = mssql_python.exceptions.ProgrammingError("no result", None)
         Connector._Connector__cursor = cursor
         assert Connector.result() is None
