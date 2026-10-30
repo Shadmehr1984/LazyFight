@@ -29,6 +29,7 @@ The game and its database setup are still evolving. In particular, the current p
 ## Project Structure
 
 - `main.py` — application entry point.
+- `requirements.txt` — Python runtime and test dependencies.
 - `src/creatures/` — base creatures, players, enemies, and creature groups.
 - `src/fighting/` — fights, turns, and dungeons.
 - `src/moves/` — combat move classes and move targets.
@@ -44,15 +45,14 @@ The game and its database setup are still evolving. In particular, the current p
 
 - Python 3.10 or later.
 - A Microsoft SQL Server instance.
-- Python packages:
-  - `mssql-python`
-  - `python-dotenv`
-  - `pytest` (for running tests)
+- Python packages listed in `requirements.txt`:
+  - `mssql-python` and `python-dotenv` for the application.
+  - `pytest` for running tests.
 
-Install the packages from the repository root:
+Install all dependencies from the repository root:
 
 ```bash
-python -m pip install mssql-python python-dotenv pytest
+python -m pip install -r requirements.txt
 ```
 
 ## Database Configuration
