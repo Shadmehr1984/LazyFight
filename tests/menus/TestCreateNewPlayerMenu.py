@@ -9,11 +9,11 @@ class TestCreateNewPlayerMenu:
         generated_moves = [Mock() for _ in range(6)]
         enemy = Mock()
         enemy.moves = generated_moves
-        with patch("builtins.input", side_effect=["Ada", "rock"]), \
+        with patch("builtins.input", side_effect=["Adamss", "rock"]), \
              patch("src.menus.CreateNewPlayerMenu.EnemyGenerator.generate", return_value=enemy) as generate_enemy, \
              patch("src.menus.CreateNewPlayerMenu.PlayerModel") as player_model:
             player = CreateNewPlayerMenu([]).open()
-        assert player.name == "Ada"
+        assert player.name == "Adamss"
         assert player.group == Group.rock
         assert len(player.moves) == 6
         generate_enemy.assert_called_once_with(1, "rrrrrr", "rock")
