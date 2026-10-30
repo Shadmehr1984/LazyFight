@@ -1,5 +1,6 @@
 from src.creatures.Player import Player
 from src.creatures.Group import Group
+from src.generators.EnemyGenerator import EnemyGenerator
 from src.models.PlayerModel import PlayerModel
 
 class CreateNewPlayerMenu:
@@ -49,6 +50,10 @@ class CreateNewPlayerMenu:
                 group = Group.scissor
         
         new_player = Player(name, 1, group, 100)
+        
+        #add 6 basic move
+        for move in EnemyGenerator.generate(1, 'rrrrrr', group.name).moves:
+            new_player.add_move(move)
         
         #save
         (PlayerModel(new_player)).save()
