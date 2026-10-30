@@ -25,7 +25,8 @@ class InventoryModel:
         
         return inventory
     
-    def save(self):
+    #if get_query is True, nothing run on DB and just return the query
+    def save(self, get_query: bool = False):
         self.__exists(self.player_id)
         
         #old_inventory = [(item_name1, item_count1), ...]
@@ -70,6 +71,9 @@ class InventoryModel:
         query += self.__build_insert_query(insert_items)
         query += "\n"
         query += self.__build_delete_query(delete_items)
+        
+        if (get_query):
+            return query
         
         Connector.execute(query, commit=True)
     

@@ -23,11 +23,11 @@ class PlayerModel:
                 update_attrs[key] = new_attrs[key]
         
         query = self.__build_update_query(update_attrs)
+        query += "\n"
+        query += (InventoryModel(self.player)).save(get_query=True)
+        query += (MoveModel(self.player)).save(get_query=True)
         
-        Connector.execute(query, commit=True)
-        
-        (InventoryModel(self.player)).save()
-        (MoveModel(self.player)).save()
+        Connector.execute(query, commit=True, transaction=True)
     
     def __build_update_query(self, update_attrs: dict) -> str:
         if (len(update_attrs) == 0):

@@ -16,7 +16,8 @@ class MoveModel:
     def __init__(self, player: Player) -> None:
         self.player = player
     
-    def save(self):
+    #if get_query is True, nothing run on DB and just return the query
+    def save(self, get_query: bool = False):
         MoveModel.__exists(self.player.player_id)
         
         old_moves = self.__get_old_moves()
@@ -61,6 +62,9 @@ class MoveModel:
         query += self.__build_insert_query(insert_moves)
         query += "\n"
         query += self.__build_delete_query(delete_moves)
+        
+        if (get_query):
+            return query
         
         Connector.execute(query, commit=True)
     
