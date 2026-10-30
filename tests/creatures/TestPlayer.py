@@ -109,7 +109,8 @@ class TestPlayer:
 
     def test_select_turn_moves_selects_three_distinct_moves(self, monkeypatch, capsys):
         player = Player("Raven", 1, Group.rock, 100)
-        player.fight_moves = [DummyMove(str(index)) for index in range(6)]
+        player.moves = [DummyMove(str(index)) for index in range(6)]
+        player.select_fight_moves()
         answers = iter(["0", "1", "2"])
         monkeypatch.setattr("builtins.input", lambda: next(answers))
 
