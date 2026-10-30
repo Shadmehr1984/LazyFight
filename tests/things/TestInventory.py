@@ -180,3 +180,74 @@ class TestInventory:
         expected = "name:gold, count:10\nname:silver, count:12"
         
         assert expected == i.__str__()
+
+    def test_pick_items_returns_true_when_all_items_are_picked(self, i):
+        result = i.pick_items({'gold': 2, 'silver': 3})
+
+        assert result is True
+        assert i.get() == {'gold': 8, 'silver': 9}
+
+    def test_pick_items_with_empty_dictionary_does_not_change_inventory(self, i):
+        before = i.get()
+
+        result = i.pick_items({})
+
+        assert result is True
+        assert i.get() == before
+
+    def test_pick_items_failure_does_not_partially_change_inventory(self, i):
+        before = i.get()
+
+        with pytest.raises(ItemNotEnoughException):
+            i.pick_items({'gold': 2, 'silver': 100})
+
+        assert i.get() == before
+
+    def test_pick_items_missing_item_does_not_change_inventory(self, i):
+        before = i.get()
+
+        with pytest.raises(ItemNotExistException):
+            i.pick_items({'gold': 2, 'coin': 1})
+
+        assert i.get() == before
+
+    def test_pick_items_rejects_zero_or_negative_counts(self, i):
+        before = i.get()
+
+        with pytest.raises(ValueError):
+            i.pick_items({'gold': 0})
+
+        with pytest.raises(ValueError):
+            i.pick_items({'silver': -1})
+
+        assert i.get() == before
+
+    def test_get_returns_a_copy_of_inventory_counts(self, i):
+        result = i.get()
+        result['gold'] = 999
+        result['coin'] = 1
+
+        assert i.get() == {'gold': 10, 'silver': 12}
+
+    def test_add_all_inventory_combines_item_counts(self):
+        source = Inventory()
+        source.add_item(Item('gold', 10))
+        source.add_item(Item('silver', 4))
+
+        destination = Inventory()
+        destination.add_item(Item('gold', 2))
+        destination.add_all_inventory(source)
+
+        assert destination.get() == {'gold': 12, 'silver': 4}
+        assert source.get() == {'gold': 10, 'silver': 4}
+
+    def test_add_all_inventory_does_not_share_item_objects(self):
+        source = Inventory()
+        source.add_item(Item('potion', 3))
+        destination = Inventory()
+
+        destination.add_all_inventory(source)
+        destination.pick_item('potion', 1)
+
+        assert destination.get() == {'potion': 2}
+        assert source.get() == {'potion': 3}
