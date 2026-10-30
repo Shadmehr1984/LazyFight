@@ -104,7 +104,8 @@ class MoveGenerator:
         return base
     
     @staticmethod
-    def __calculate_rank_up_require(rank, base: dict):
+    def __calculate_rank_up_require(rank, original_base: dict):
+        base = original_base.copy()
         if (rank == 1): return base
         
         rate = Move._Move__RANK_UP_REQUIRE_ITEM_COUNT_RATE
