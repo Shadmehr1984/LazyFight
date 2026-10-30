@@ -35,3 +35,23 @@ class TestItem:
         item = Item('sword', 1)
         
         assert item.__str__() == 'name:sword, count:1'
+
+    def test_get_returns_a_new_dictionary_each_time(self):
+        item = Item('potion', 3)
+
+        first = item.get()
+        second = item.get()
+
+        assert first == {'name': 'potion', 'count': 3}
+        assert second == {'name': 'potion', 'count': 3}
+        assert first is not second
+
+    def test_changing_get_result_does_not_change_item(self):
+        item = Item('potion', 3)
+        result = item.get()
+
+        result['name'] = 'poison'
+        result['count'] = 99
+
+        assert item.name == 'potion'
+        assert item.count == 3
