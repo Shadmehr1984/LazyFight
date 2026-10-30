@@ -17,10 +17,26 @@ class Connector:
             Connector.__cursor = Connector.__connection.cursor()
     
     @staticmethod
-    def execute(query: str, *parameters, commit: bool = False):
+    def execute(query: str, *parameters, commit: bool = False, transaction: bool = False):
         Connector.__connect()
+        if (transaction):
+            query = Connector.__transact_query(query)
         Connector.__cursor.execute(query, parameters)
         if commit: Connector.__cursor.execute('COMMIT;')
+    
+    @staticmethod
+    def __transact_query(query: str):
+        transact_query = ""
+        transact_query += "BEGIN TRY\n"
+        transact_query += "BEGIN TRANSACTION;\n"
+        transact_query += query
+        transact_query += "COMMIT TRANSACTION\n"
+        transact_query += "\nEND TRY\n"
+        transact_query += "BEGIN CATCH\n"
+        transact_query += "ROLLBACK TRANSACTION;\n"
+        transact_query += "END CATCH;"
+        
+        return transact_query
     
     @staticmethod
     def result():
