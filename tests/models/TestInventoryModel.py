@@ -78,7 +78,7 @@ class TestInventoryModel:
         assert "INSERT INTO [dbo].[player_inventory]" in query
         assert "(5, 'ether', 4)" in query
         assert "DELETE FROM [dbo].[player_inventory]" in query
-        assert "item_name IN ('old_item')" in query
+        assert "item_name IN('old_item')" in query
 
     @patch("src.models.InventoryModel.Connector")
     def test_save_without_changes_returns_empty_query(self, connector):
